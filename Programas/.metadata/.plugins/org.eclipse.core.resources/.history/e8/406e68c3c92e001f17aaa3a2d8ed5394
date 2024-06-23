@@ -1,0 +1,112 @@
+package Interfaz;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+
+public class IngresarProd extends JFrame {
+
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTextField textField_2;
+    private JTextField textField_3;
+    private JTextField textField_4;
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    IngresarProd frame = new IngresarProd();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Create the frame.
+     */
+    public IngresarProd() {
+        setBackground(new Color(71, 143, 197));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 497, 486);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(71, 143, 197));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblNewLabel = new JLabel("Producto");
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblNewLabel.setBounds(75, 55, 133, 43);
+        contentPane.add(lblNewLabel);
+
+        JLabel lblNewLabel_1_2 = new JLabel("Nombre");
+        lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblNewLabel_1_2.setBounds(75, 137, 94, 22);
+        contentPane.add(lblNewLabel_1_2);
+
+        textField_2 = new JTextField();
+        textField_2.setColumns(10);
+        textField_2.setBounds(179, 137, 214, 24);
+        contentPane.add(textField_2);
+
+        JLabel lblNewLabel_1_3 = new JLabel("Descripcion");
+        lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblNewLabel_1_3.setBounds(75, 171, 94, 22);
+        contentPane.add(lblNewLabel_1_3);
+
+        textField_3 = new JTextField();
+        textField_3.setColumns(10);
+        textField_3.setBounds(179, 171, 214, 24);
+        contentPane.add(textField_3);
+
+        JLabel lblNewLabel_1_4 = new JLabel("Precio");
+        lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblNewLabel_1_4.setBounds(75, 203, 94, 22);
+        contentPane.add(lblNewLabel_1_4);
+
+        textField_4 = new JTextField();
+        textField_4.setColumns(10);
+        textField_4.setBounds(179, 203, 214, 24);
+        contentPane.add(textField_4);
+
+        JLabel lblNewLabel_1_2_1 = new JLabel("Unidad");
+        lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblNewLabel_1_2_1.setBounds(75, 238, 94, 22);
+        contentPane.add(lblNewLabel_1_2_1);
+
+        String[] unidades = {"Ninguna", "Kg", "Unidad", "Litro", "Metro"};
+        JComboBox comboBoxUnidad = new JComboBox(unidades);
+        comboBoxUnidad.setBounds(179, 237, 214, 22);
+        contentPane.add(comboBoxUnidad);
+
+        JLabel lblNewLabel_1_3_1 = new JLabel("Moneda");
+        lblNewLabel_1_3_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblNewLabel_1_3_1.setBounds(75, 272, 94, 22);
+        contentPane.add(lblNewLabel_1_3_1);
+
+        String[] monedas = {"Ninguna", "Dólar", "Euro", "Peso"};
+        JComboBox comboBoxMoneda = new JComboBox(monedas);
+        comboBoxMoneda.setBounds(179, 272, 214, 22);
+        contentPane.add(comboBoxMoneda);
+
+        JButton btnNewButton = new JButton("Ingresar");
+        btnNewButton.setBounds(196, 349, 85, 21);
+        contentPane.add(btnNewButton);
+    }
+}

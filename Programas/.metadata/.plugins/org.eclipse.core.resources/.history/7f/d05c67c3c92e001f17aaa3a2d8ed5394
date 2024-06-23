@@ -1,0 +1,129 @@
+package Interfaz;
+
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import java.awt.Font;
+
+public class Menu extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	
+	public Menu() {
+		setBackground(new Color(71, 143, 197));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 509, 452);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(71, 143, 197));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Ingresar");
+		btnNewButton.setBounds(202, 73, 90, 31);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Mostrar");
+		btnNewButton_1.setBounds(302, 73, 90, 31);
+		contentPane.add(btnNewButton_1);
+		
+		JLabel lblNewLabel = new JLabel("Producto");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel.setBounds(102, 77, 90, 27);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblProveedor = new JLabel("Proveedor");
+		lblProveedor.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblProveedor.setBounds(102, 118, 90, 27);
+		contentPane.add(lblProveedor);
+		
+		JButton btnNewButton_2 = new JButton("Ingresar");
+		btnNewButton_2.setBounds(202, 114, 90, 31);
+		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_1_1 = new JButton("Mostrar");
+		btnNewButton_1_1.setBounds(302, 114, 90, 31);
+		contentPane.add(btnNewButton_1_1);
+		
+		JLabel lblRemitente = new JLabel("Remitente");
+		lblRemitente.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblRemitente.setBounds(102, 159, 90, 27);
+		contentPane.add(lblRemitente);
+		
+		JButton btnNewButton_3 = new JButton("Ingresar");
+		btnNewButton_3.setBounds(202, 155, 90, 31);
+		contentPane.add(btnNewButton_3);
+		
+		JButton btnNewButton_1_2 = new JButton("Mostrar");
+		btnNewButton_1_2.setBounds(302, 155, 90, 31);
+		contentPane.add(btnNewButton_1_2);
+		
+		JLabel lblReceptor = new JLabel("Receptor");
+		lblReceptor.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblReceptor.setBounds(102, 200, 90, 27);
+		contentPane.add(lblReceptor);
+		
+		JButton btnNewButton_4 = new JButton("Ingresar");
+		btnNewButton_4.setBounds(202, 196, 90, 31);
+		contentPane.add(btnNewButton_4);
+		
+		JButton btnNewButton_1_3 = new JButton("Mostrar");
+		btnNewButton_1_3.setBounds(302, 196, 90, 31);
+		contentPane.add(btnNewButton_1_3);
+		
+		JLabel lblConductor = new JLabel("Conductor");
+		lblConductor.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblConductor.setBounds(102, 242, 90, 27);
+		contentPane.add(lblConductor);
+		
+		JButton btnNewButton_5 = new JButton("Ingresar");
+		btnNewButton_5.setBounds(202, 238, 90, 31);
+		contentPane.add(btnNewButton_5);
+		
+		JButton btnNewButton_1_4 = new JButton("Mostrar");
+		btnNewButton_1_4.setBounds(302, 238, 90, 31);
+		contentPane.add(btnNewButton_1_4);
+		
+		JLabel lblUnidadDeTrasnporte = new JLabel("Unidad de Trasnporte");
+		lblUnidadDeTrasnporte.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblUnidadDeTrasnporte.setBounds(46, 283, 182, 27);
+		contentPane.add(lblUnidadDeTrasnporte);
+		
+		JButton btnNewButton_6 = new JButton("Ingresar");
+		btnNewButton_6.setBounds(238, 279, 90, 31);
+		contentPane.add(btnNewButton_6);
+		
+		JButton btnNewButton_1_5 = new JButton("Mostrar");
+		btnNewButton_1_5.setBounds(338, 279, 90, 31);
+		contentPane.add(btnNewButton_1_5);
+		
+		JLabel lblGuiaDeRemision = new JLabel("Guia de Remision");
+		lblGuiaDeRemision.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblGuiaDeRemision.setBounds(78, 324, 150, 27);
+		contentPane.add(lblGuiaDeRemision);
+		
+		JButton btnNewButton_6_1 = new JButton("Ingresar");
+		btnNewButton_6_1.setBounds(238, 320, 90, 31);
+		contentPane.add(btnNewButton_6_1);
+		
+		JButton btnNewButton_1_5_1 = new JButton("Mostrar");
+		btnNewButton_1_5_1.setBounds(338, 320, 90, 31);
+		contentPane.add(btnNewButton_1_5_1);
+		
+		JLabel lblNewLabel_1 = new JLabel("Menu");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_1.setBounds(192, 24, 84, 45);
+		contentPane.add(lblNewLabel_1);
+		
+	}
+}

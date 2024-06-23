@@ -1,0 +1,204 @@
+package Interfaz;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+public class IngresarNC extends JFrame {
+
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JComboBox comboBoxFactura;
+    private JComboBox comboBoxProducto;
+    private JTextField textFieldCantidad;
+    private JTextField textFieldTotal;
+    private JTextField textFieldFormaPago;
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    IngresarNC frame = new IngresarNC();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Create the frame.
+     */
+    public IngresarNC() {
+        setBackground(new Color(71, 143, 197));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 557, 500);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(71, 143, 197));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblNewLabel = new JLabel("Ingresar Nota de Cargo");
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblNewLabel.setBounds(101, 63, 327, 31);
+        contentPane.add(lblNewLabel);
+
+        JLabel lblNewLabel_1 = new JLabel("Factura");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1.setBounds(85, 142, 103, 25);
+        contentPane.add(lblNewLabel_1);
+
+        comboBoxFactura = new JComboBox();
+        comboBoxFactura.setBounds(198, 142, 262, 25);
+        contentPane.add(comboBoxFactura);
+
+        JLabel lblNewLabel_1_1 = new JLabel("Producto");
+        lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1_1.setBounds(85, 194, 103, 25);
+        contentPane.add(lblNewLabel_1_1);
+
+        comboBoxProducto = new JComboBox();
+        comboBoxProducto.setBounds(198, 194, 262, 25);
+        contentPane.add(comboBoxProducto);
+
+        JLabel lblNewLabel_1_1_1 = new JLabel("Cantidad");
+        lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1_1_1.setBounds(85, 247, 103, 25);
+        contentPane.add(lblNewLabel_1_1_1);
+
+        textFieldCantidad = new JTextField();
+        textFieldCantidad.setBounds(198, 247, 262, 25);
+        contentPane.add(textFieldCantidad);
+
+        JLabel lblNewLabel_1_1_1_1 = new JLabel("Forma de Pago");
+        lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1_1_1_1.setBounds(85, 297, 146, 25);
+        contentPane.add(lblNewLabel_1_1_1_1);
+
+        textFieldFormaPago = new JTextField();
+        textFieldFormaPago.setBounds(232, 297, 228, 25);
+        contentPane.add(textFieldFormaPago);
+
+        JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Total");
+        lblNewLabel_1_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1_1_1_1_1.setBounds(85, 343, 103, 25);
+        contentPane.add(lblNewLabel_1_1_1_1_1);
+
+        textFieldTotal = new JTextField();
+        textFieldTotal.setBounds(198, 343, 262, 25);
+        contentPane.add(textFieldTotal);
+
+        JButton btnNewButton = new JButton("Ingresar");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String factura = (String) comboBoxFactura.getSelectedItem();
+                String producto = (String) comboBoxProducto.getSelectedItem();
+                String cantidad = textFieldCantidad.getText();
+                String formaPago = textFieldFormaPago.getText();
+                String total = textFieldTotal.getText();
+
+                long idFactura = Long.parseLong(factura.split(" - ")[0]);
+                long idProducto = Long.parseLong(producto.split(" - ")[0]);
+
+                try {
+                    Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/SIATeoria", "postgres", "0000");
+                    PreparedStatement pstmt;
+                    
+                    // Ingresar nota de cargo
+                    pstmt = conn.prepareStatement("INSERT INTO TRS_NOTA_CARGO (fecha, ID_Factura, forma_de_pago, id_cargo_detalle) VALUES (CURRENT_DATE,?,?,nextval('id_nota_cargo_detalle'))");
+                    pstmt.setLong(1, idFactura);
+                    pstmt.setString(2, formaPago);
+                    pstmt.executeUpdate();
+
+                    // Recuperar ID de la nota de cargo recién ingresada
+                    pstmt = conn.prepareStatement("SELECT id_nota_cargo FROM TRS_NOTA_CARGO WHERE ID_Factura =?");
+                    pstmt.setLong(1, idFactura);
+                    ResultSet rs = pstmt.executeQuery();
+                    rs.next();
+                    long idNotaCargo = rs.getLong("id_nota_cargo");
+
+                    // Ingresar nota de cargo detalle
+                    pstmt = conn.prepareStatement("INSERT INTO TRS_NOTA_CARGO_DETALLE (id_nota_cargo, id_producto, cantidad, total) VALUES (?,?,?,?)");
+                    pstmt.setLong(1, idNotaCargo);
+                    pstmt.setLong(2, idProducto);
+                    pstmt.setInt(3, Integer.parseInt(cantidad));
+                    pstmt.setDouble(4, Double.parseDouble(total));
+                    pstmt.executeUpdate();
+
+                    JOptionPane.showMessageDialog(IngresarNC.this, "Nota de cargo ingresada correctamente");
+                    Menu frame = new Menu();
+                    frame.setVisible(true);
+                    IngresarNC.this.dispose();
+                } catch (SQLException ex) {
+                    System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
+                }
+            }
+        });
+        btnNewButton.setBounds(224, 394, 85, 21);
+        contentPane.add(btnNewButton);
+
+        JButton btnNewButton_1 = new JButton("<-");
+        btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Menu frame = new Menu();
+                frame.setVisible(true);
+                IngresarNC.this.dispose();
+            }
+        });
+
+        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        btnNewButton_1.setBackground(new Color(71, 143, 197));
+        btnNewButton_1.setBounds(10, 10, 49, 21);
+        contentPane.add(btnNewButton_1);
+
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/SIATeoria", "postgres", "0000");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT ID_Factura, fecha FROM MAE_FACTURA");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                comboBoxFactura.addItem(rs.getLong("ID_Factura") + " - " + rs.getDate("fecha"));
+            }
+
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
+        }
+
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/SIATeoria", "postgres", "0000");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT id_producto, nombre FROM MAE_PRODUCTOS");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                comboBoxProducto.addItem(rs.getLong("id_producto") + " - " + rs.getString("nombre"));
+            }
+
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
+        }
+    }
+}

@@ -1,0 +1,107 @@
+package Interfaz;
+
+import java.awt.EventQueue;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.ComboBoxModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class IngresarC extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					IngresarC frame = new IngresarC();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public IngresarC() {
+		setBackground(new Color(71, 143, 197));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 557, 500);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(71, 143, 197));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Ingresar Cliente");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel.setBounds(148, 47, 214, 31);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nombre");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(85, 142, 103, 25);
+		contentPane.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(198, 142, 262, 25);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		String[] unidades = {"Ninguna", "Kg", "Unidad", "Litro", "Metro"};
+		JComboBox comboBoxUnidad = new JComboBox(unidades);
+		comboBoxUnidad.setBounds(198, 194, 262, 25);
+		contentPane.add(comboBoxUnidad);
+        
+        JLabel lblNewLabel_1_1 = new JLabel("Tipo de ID");
+        lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1_1.setBounds(85, 194, 103, 25);
+        contentPane.add(lblNewLabel_1_1);
+        
+        JLabel lblNewLabel_1_1_1 = new JLabel("ID");
+        lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1_1_1.setBounds(85, 247, 103, 25);
+        contentPane.add(lblNewLabel_1_1_1);
+        
+        String[] tiposID = {"Ninguna","Cédula", "RUC", "Pasaporte", "Otro"};
+        JComboBox comboBoxTipoID = new JComboBox(tiposID);
+        comboBoxTipoID.setBounds(198, 247, 262, 25);
+        contentPane.add(comboBoxTipoID);
+        
+        JButton btnNewButton = new JButton("Ingresar");
+        btnNewButton.setBounds(221, 348, 85, 21);
+        contentPane.add(btnNewButton);
+        
+        JButton btnNewButton_1 = new JButton("<-");
+        btnNewButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	Menu frame = new Menu();
+				frame.setVisible(true);
+				IngresarC.this.dispose();
+		    }
+		});
+        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        btnNewButton_1.setBackground(new Color(71, 143, 197));
+        btnNewButton_1.setBounds(10, 10, 49, 21);
+        contentPane.add(btnNewButton_1);
+	}
+}

@@ -1,0 +1,110 @@
+package Interfaz;
+
+import java.awt.EventQueue;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.ComboBoxModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class IngresarF extends JFrame {
+
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JComboBox comboBoxCliente;
+    private JComboBox comboBoxVendedor;
+    private JComboBox comboBoxPuntoVenta;
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    IngresarF frame = new IngresarF();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Create the frame.
+     */
+    public IngresarF() {
+        setBackground(new Color(71, 143, 197));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 557, 500);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(71, 143, 197));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblNewLabel = new JLabel("Ingresar Factura");
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblNewLabel.setBounds(148, 47, 233, 31);
+        contentPane.add(lblNewLabel);
+
+        JLabel lblNewLabel_1 = new JLabel("Cliente");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1.setBounds(85, 142, 103, 25);
+        contentPane.add(lblNewLabel_1);
+
+        String[] clientes = {"Cliente 1", "Cliente 2", "Cliente 3", "Cliente 4", "Cliente 5"};
+        comboBoxCliente = new JComboBox(clientes);
+        comboBoxCliente.setBounds(198, 142, 262, 25);
+        contentPane.add(comboBoxCliente);
+
+        JLabel lblNewLabel_1_1 = new JLabel("Vendedor");
+        lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1_1.setBounds(85, 194, 103, 25);
+        contentPane.add(lblNewLabel_1_1);
+
+        String[] vendedores = {"Vendedor 1", "Vendedor 2", "Vendedor 3", "Vendedor 4", "Vendedor 5"};
+        comboBoxVendedor = new JComboBox(vendedores);
+        comboBoxVendedor.setBounds(198, 194, 262, 25);
+        contentPane.add(comboBoxVendedor);
+
+        JLabel lblNewLabel_1_1_1 = new JLabel("Punto de Venta");
+        lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblNewLabel_1_1_1.setBounds(85, 247, 142, 25);
+        contentPane.add(lblNewLabel_1_1_1);
+
+        String[] puntosVenta = {"Punto de Venta 1", "Punto de Venta 2", "Punto de Venta 3", "Punto de Venta 4", "Punto de Venta 5"};
+        comboBoxPuntoVenta = new JComboBox(puntosVenta);
+        comboBoxPuntoVenta.setBounds(237, 247, 223, 25);
+        contentPane.add(comboBoxPuntoVenta);
+
+        JButton btnNewButton = new JButton("Ingresar");
+        btnNewButton.setBounds(221, 348, 85, 21);
+        contentPane.add(btnNewButton);
+
+        JButton btnNewButton_1 = new JButton("<-");
+        btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Menu frame = new Menu();
+                frame.setVisible(true);
+                IngresarF.this.dispose();
+            }
+        });
+
+        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        btnNewButton_1.setBackground(new Color(71, 143, 197));
+        btnNewButton_1.setBounds(10, 10, 49, 21);
+        contentPane.add(btnNewButton_1);
+    }
+}

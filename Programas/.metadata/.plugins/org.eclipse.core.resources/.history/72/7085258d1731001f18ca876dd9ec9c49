@@ -1,0 +1,54 @@
+package ConexionDB;
+
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
+
+public class Conexion {
+    public static Connection getConnection(String url, String user, String password) {
+        try {
+            Class.forName("org.postgresql.Driver");
+            return DriverManager.getConnection(url, user, password);
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error en el driver");
+            return null;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        String url = "jdbc:postgresql://localhost:5432/SIATeoria";
+        String user = "postgres";
+        String password = "0000";
+        Connection cn = getConnection(url, user, password);
+        if (cn!= null) {
+            try {
+                java.sql.Statement st = cn.createStatement();
+                String tabla = "MAE_USUARIO";
+                ResultSet rs = ((java.sql.Statement) st).executeQuery("Select * From " + tabla);
+                listar(rs);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }
+
+    public static void listar(ResultSet rs) throws SQLException {
+        ResultSetMetaData meta = rs.getMetaData();
+        while(rs.next()) {
+        	System.out.println("usuario" + rs.getString(2));
+        }
+    }
+}

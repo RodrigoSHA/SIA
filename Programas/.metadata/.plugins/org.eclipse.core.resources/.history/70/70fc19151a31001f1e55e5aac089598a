@@ -1,0 +1,117 @@
+package ConexionDB;
+
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
+
+public class Conexion {
+    public static Connection getConnection(String url, String user, String password) {
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection cn = DriverManager.getConnection(url, user, password);
+            createTables(cn); // Create tables before returning the connection
+            return cn;
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error en el driver");
+            return null;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static void createTables(Connection cn) {
+        try {
+            java.sql.Statement st = cn.createStatement();
+            st.execute("CREATE TABLE IF NOT EXISTS MAE_USUARIO (" +
+                    "ID_Usuario bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "nombre_usuario varchar NOT NULL UNIQUE," +
+                    "correo_electronico varchar NOT NULL UNIQUE," +
+                    "contrasena varchar NOT NULL UNIQUE," +
+                    "PRIMARY KEY (ID_Usuario)" +
+                    ");");
+
+            st.execute("CREATE TABLE IF NOT EXISTS MAE_CLIENTE (" +
+                    "ID_Cliente bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "nombre_cliente varchar NOT NULL," +
+                    "id_tipo_documento bigint NOT NULL," +
+                    "id_documento bigint NOT NULL," +
+                    "PRIMARY KEY (ID_Cliente)" +
+                    ");");
+
+            st.execute("CREATE TABLE IF NOT EXISTS MAE_TIPO_DOCUMENTO (" +
+                    "ID_tipo_documento bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "nombre varchar NOT NULL," +
+                    "descripcion text NOT NULL," +
+                    "PRIMARY KEY (ID_tipo_documento)" +
+                    ");");
+
+            st.execute("CREATE TABLE IF NOT EXISTS MAE_PRODUCTOS (" +
+                    "ID_producto bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "nombre varchar NOT NULL," +
+                    "descripcion text NOT NULL," +
+                    "unidad varchar NOT NULL," +
+                    "costo_unitario double precision NOT NULL," +
+                    "PRIMARY KEY (ID_producto)" +
+                    ");");
+
+            st.execute("CREATE TABLE IF NOT EXISTS MAE_VENDEDOR (" +
+                    "ID_vendedor bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "nombre varchar NOT NULL," +
+                    "ID_documento bigint NOT NULL," +
+                    "tipo_de_documento bigint NOT NULL," +
+                    "PRIMARY KEY (ID_vendedor)" +
+                    ");");
+
+            st.execute("CREATE TABLE IF NOT EXISTS MAE_FACTURA (" +
+                    "ID_factura bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "fecha date NOT NULL," +
+                    "id_cliente bigint NOT NULL," +
+                    "id_vendedor bigint NOT NULL," +
+                    "id_pto_venta bigint NOT NULL," +
+                    "PRIMARY KEY (ID_factura)" +
+                    ");");
+
+            st.execute("CREATE TABLE IF NOT EXISTS MAE_PUNTO_VENTA (" +
+                    "Id_punto_venta bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "nombre varchar NOT NULL," +
+                    "direccion text NOT NULL," +
+                    "PRIMARY KEY (Id_punto_venta)" +
+                    ");");
+
+            st.execute("CREATE TABLE IF NOT EXISTS TRS_NOTA_CARGO (" +
+                    "id_nota_cargo bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "fecha date NOT NULL," +
+                    "ID_Factura bigint NOT NULL," +
+                    "forma_de_pago varchar NOT NULL," +
+                    "ID_Cargo_Detalle bigint NOT NULL," +
+                    "PRIMARY KEY (id_nota_cargo)" +
+                    ");");
+
+            st.execute("CREATE TABLE IF NOT EXISTS TRS_NOTA_CARGO_DETALLE (" +
+                    "Id_nota_cargo_detalle bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE," +
+                    "id_nota_cargo bigint NOT NULL," +
+                    "id_producto bigint NOT NULL," +
+                    "cantidad bigint NOT NULL," +
+                    "total double precision NOT NULL," +
+                    "PRIMARY KEY (Id_nota_cargo_detalle)" +
+                    ");");
+
+            // Create foreign key constraints
+            st.execute("ALTER TABLE MAE_CLIENTE ADD CONSTRAINT MAE_CLIENTE_fk2 FOREIGN KEY (id_tipo_documento) REFERENCES MAE_TIPO_DOCUMENTO(ID_tipo_documento);");
+            st.execute("ALTER TABLE MAE_VENDEDOR ADD CONSTRAINT MAE_VENDEDOR_fk3 FOREIGN KEY (tipo_de_documento) REFERENCES MAE_TIPO_DOCUMENTO(ID_tipo_documento);");
+            st.execute("ALTER TABLE MAE_FACTURA ADD CONSTRAINT MAE_FACTURA_fk2 FOREIGN KEY (id_cliente) REFERENCES MAE_CLIENTE(ID_Cliente);");
+            st.execute("ALTER TABLE MAE_FACTURA ADD CONSTRAINT MAE_FACTURA_fk3 FOREIGN KEY (id_vendedor) REFERENCES MAE_VENDEDOR(ID_vendedor);");
+            st.execute("ALTER TABLE MAE_FACTURA ADD CONSTRAINT MAE_FACTURA_fk4 FOREIGN KEY (id_pto_venta) REFERENCES MAE_PUNTO_VENTA(Id_punto_venta);");
+            st.execute("ALTER TABLE TRS_NOTA_CARGO ADD CONSTRAINT TRS_NOTA_CARGO_fk2 FOREIGN KEY (ID_Factura) REFERENCES MAE_FACTURA(ID_factura);");
+            st.execute("ALTER TABLE TRS_NOTA_CARGO_DETALLE ADD CONSTRAINT TRS_NOTA_CARGO_DETALLE_fk1 FOREIGN KEY (id_nota_cargo) REFERENCES TRS_NOTA_CARGO(id_nota_cargo);");
+            st.execute("ALTER TABLE TRS_NOTA_CARGO_DETALLE ADD CONSTRAINT TRS_NOTA_CARGO_DETALLE_fk2 FOREIGN KEY (id_producto) REFERENCES MAE_PRODUCTOS(ID_producto);");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}

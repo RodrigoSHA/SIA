@@ -1,0 +1,138 @@
+package Interfaz;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
+import java.awt.Button;
+
+public class IngresarInt extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					IngresarInt frame = new IngresarInt();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public IngresarInt() {
+		setBackground(new Color(71, 143, 197));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 967, 777);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(71, 143, 197));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Nota de Cargo");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel.setBounds(376, 86, 194, 48);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nombre Cliente");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(145, 201, 137, 35);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("ID Cliente");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_2.setBounds(145, 246, 98, 35);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Nro Factura");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_3.setBounds(145, 294, 137, 35);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Forma de Pago");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_4.setBounds(145, 339, 137, 35);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Producto");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_5.setBounds(407, 453, 137, 48);
+		contentPane.add(lblNewLabel_5);
+		
+		textField = new JTextField();
+		textField.setBounds(303, 201, 420, 35);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(303, 246, 420, 35);
+		contentPane.add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(303, 295, 420, 35);
+		contentPane.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(303, 343, 420, 35);
+		contentPane.add(textField_3);
+		
+		JLabel lblNewLabel_4_1 = new JLabel("Descripcion");
+		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_4_1.setBounds(145, 384, 137, 35);
+		contentPane.add(lblNewLabel_4_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(303, 388, 420, 35);
+		contentPane.add(textField_4);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		table.setBounds(145, 539, 655, 174);
+		contentPane.add(table);
+	}
+}
